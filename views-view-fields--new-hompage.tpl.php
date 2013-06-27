@@ -24,44 +24,49 @@
  * @ingroup views_templates
  */
 ?>
-<?php 
 
+<?php
+/*
+ * Pull in our variables from the view fields.
+ * $fields['id_of_our_field']->content;
+*/
 $title = $fields['title']->content;
 $body = $fields['body']->content;
-$created = $fields['created']->content;
 $img = $fields['field_image']->content;
 $name = $fields['name']->content;
-$access = $fields['access']->content;
+$uid = $fields['uid']->content;
 $type = $fields['type']->content;
-$machine_nm = $fields['type_1']->content;
-$uid =  $fields['uid_1']->content;
 
-if ($machine_nm == 'article' ) {
-	$grid1 = "grid-8 alpha";
-	$grid2 = "grid-4 omega";	
+/*
+ * Create an if statement for switching grid
+ * layouts based on content type
+*/
+if ($type == 'article') {
+	$grid1 = 'grid-8 push-4 omega';
+	$grid2 = 'grid-4 pull-8 alpha';
 } else {
-	$grid1 = "grid-8 push-4 omega";
-	$grid2 = "grid-4 pull-8 alpha";
+	$grid1 = 'grid-8 alpha';
+	$grid2 = 'grid-4 omega';
 }
-
 ?>
 
 
-
-<div class="<?php print $machine_nm; ?> clearfix">
+<div class="<?php print $type; ?>">
 	<div class="<?php print $grid1; ?>">
 		<h3 class="title"><?php print $title; ?></h3>
-		<span class="created"><?php print $created; ?></span>
 		<div class="body"><?php print $body; ?></div>
 	</div>
 	<div class="<?php print $grid2; ?>">
 		<div class="img responsive"><?php print $img; ?></div>
+		<?php if ($uid != '0' && $type == 'article'): ?>
+			<div class="author">
+				<label>Author:</label>
+				<?php print $name; ?>
+			</div>
+		<?php endif; ?>
 	</div>
-	<?php if ($uid !=0 && $machine_nm =='article'): ?>
-		<div class="grid-12 alpha omega">
-			<label>Author Info:</label>
-			<div class="author-name"><?php print $name; ?></div>
-			<span class="last-access">checked in: <?php print $access; ?></span>
-		</div>
-	<?php endif; ?>
 </div>
+
+
+
+
