@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the PSDC2013 Power HTML Example feature.
- */
-
-include_once 'psdc2013_power_html_example.features.inc';
